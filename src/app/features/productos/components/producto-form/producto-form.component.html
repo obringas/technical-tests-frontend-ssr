@@ -1,5 +1,5 @@
 <div class="producto-form-pro">
-  
+
   <!-- Header Personalizado -->
   <div class="form-header" [class.edit-mode]="isEditMode">
     <div class="header-icon">
@@ -12,9 +12,9 @@
   </div>
 
   <form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
-    
+
     <div class="form-body">
-      
+
       <!-- Progress Indicator -->
       <div class="form-progress">
         <div class="progress-bar">
@@ -36,15 +36,10 @@
           <label for="nombre">
             <i class="pi pi-tag"></i>
             Nombre del Producto *
-            <i class="pi pi-question-circle help-icon" 
-               pTooltip="Ingresa un nombre descriptivo y único para el producto" 
-               tooltipPosition="right"></i>
+            <i class="pi pi-question-circle help-icon" pTooltip="Ingresa un nombre descriptivo y único para el producto"
+              tooltipPosition="right"></i>
           </label>
-          <input 
-            id="nombre"
-            type="text" 
-            pInputText 
-            formControlName="nombre"
+          <input id="nombre" type="text" pInputText formControlName="nombre"
             [class.input-error]="isFieldInvalid('nombre')"
             [class.input-success]="productoForm.get('nombre')?.valid && productoForm.get('nombre')?.touched"
             placeholder="Ej: Laptop Dell Inspiron 15" />
@@ -58,18 +53,13 @@
           <label for="descripcion">
             <i class="pi pi-align-left"></i>
             Descripción *
-            <i class="pi pi-question-circle help-icon" 
-               pTooltip="Describe las características principales del producto" 
-               tooltipPosition="right"></i>
+            <i class="pi pi-question-circle help-icon" pTooltip="Describe las características principales del producto"
+              tooltipPosition="right"></i>
           </label>
-          <textarea 
-            id="descripcion"
-            pInputTextarea 
-            formControlName="descripcion"
+          <textarea id="descripcion" pInputTextarea formControlName="descripcion"
             [class.input-error]="isFieldInvalid('descripcion')"
             [class.input-success]="productoForm.get('descripcion')?.valid && productoForm.get('descripcion')?.touched"
-            rows="4"
-            placeholder="Describe el producto detalladamente...">
+            rows="4" placeholder="Describe el producto detalladamente...">
           </textarea>
           <small class="error-message" *ngIf="isFieldInvalid('descripcion')">
             <i class="pi pi-exclamation-circle"></i>
@@ -82,20 +72,13 @@
           <label for="categoria">
             <i class="pi pi-folder"></i>
             Categoría *
-            <i class="pi pi-question-circle help-icon" 
-               pTooltip="Selecciona la categoría que mejor describa el producto" 
-               tooltipPosition="right"></i>
+            <i class="pi pi-question-circle help-icon" pTooltip="Selecciona la categoría que mejor describa el producto"
+              tooltipPosition="right"></i>
           </label>
-          <p-dropdown
-            id="categoria"
-            formControlName="categoria"
-            [options]="categorias"
-            optionLabel="label"
-            optionValue="value"
-            [class.input-error]="isFieldInvalid('categoria')"
+          <p-dropdown id="categoria" formControlName="categoria" [options]="categorias" optionLabel="label"
+            optionValue="value" [scrollHeight]="'200px'" [class.input-error]="isFieldInvalid('categoria')"
             [class.input-success]="productoForm.get('categoria')?.valid && productoForm.get('categoria')?.touched"
-            placeholder="Seleccione una categoría"
-            [showClear]="true">
+            placeholder="Seleccione una categoría" [showClear]="true">
             <ng-template pTemplate="selectedItem" let-selectedOption>
               <div class="dropdown-item" *ngIf="selectedOption">
                 <i class="pi pi-tag"></i>
@@ -130,20 +113,13 @@
             <label for="precio">
               <i class="pi pi-money-bill"></i>
               Precio *
-              <i class="pi pi-question-circle help-icon" 
-                 pTooltip="Precio de venta al público" 
-                 tooltipPosition="right"></i>
+              <i class="pi pi-question-circle help-icon" pTooltip="Precio de venta al público"
+                tooltipPosition="right"></i>
             </label>
-            <p-inputNumber
-              id="precio"
-              formControlName="precio"
-              mode="currency"
-              currency="USD"
-              locale="en-US"
+            <p-inputNumber id="precio" formControlName="precio" mode="currency" currency="USD" locale="en-US"
               [class.input-error]="isFieldInvalid('precio')"
               [class.input-success]="productoForm.get('precio')?.valid && productoForm.get('precio')?.touched"
-              [minFractionDigits]="2"
-              placeholder="0.00">
+              [minFractionDigits]="2" placeholder="0.00">
             </p-inputNumber>
             <small class="error-message" *ngIf="isFieldInvalid('precio')">
               <i class="pi pi-exclamation-circle"></i>
@@ -155,15 +131,10 @@
             <label for="stock">
               <i class="pi pi-box"></i>
               Stock *
-              <i class="pi pi-question-circle help-icon" 
-                 pTooltip="Cantidad disponible en inventario" 
-                 tooltipPosition="right"></i>
+              <i class="pi pi-question-circle help-icon" pTooltip="Cantidad disponible en inventario"
+                tooltipPosition="right"></i>
             </label>
-            <p-inputNumber
-              id="stock"
-              formControlName="stock"
-              [showButtons]="true"
-              [min]="0"
+            <p-inputNumber id="stock" formControlName="stock" [showButtons]="true" [min]="0"
               [class.input-error]="isFieldInvalid('stock')"
               [class.input-success]="productoForm.get('stock')?.valid && productoForm.get('stock')?.touched"
               placeholder="0">
@@ -195,7 +166,8 @@
               <i class="pi pi-power-off" [class.active]="productoForm.get('activo')?.value"></i>
               <div>
                 <strong>Estado del Producto</strong>
-                <p>{{ productoForm.get('activo')?.value ? 'El producto está activo y visible' : 'El producto está inactivo' }}</p>
+                <p>{{ productoForm.get('activo')?.value ? 'El producto está activo y visible' : 'El producto está
+                  inactivo' }}</p>
               </div>
             </div>
             <p-inputSwitch formControlName="activo"></p-inputSwitch>
@@ -240,21 +212,11 @@
 
     <!-- Footer con botones -->
     <div class="form-footer">
-      <button 
-        pButton 
-        type="button"
-        label="Cancelar" 
-        icon="pi pi-times"
-        class="p-button-secondary p-button-outlined"
+      <button pButton type="button" label="Cancelar" icon="pi pi-times" class="p-button-secondary p-button-outlined"
         (click)="onCancel()">
       </button>
-      <button 
-        pButton 
-        type="submit"
-        [label]="isEditMode ? 'Actualizar Producto' : 'Crear Producto'"
-        [icon]="isEditMode ? 'pi pi-save' : 'pi pi-plus'"
-        class="p-button-primary"
-        [disabled]="productoForm.invalid"
+      <button pButton type="submit" [label]="isEditMode ? 'Actualizar Producto' : 'Crear Producto'"
+        [icon]="isEditMode ? 'pi pi-save' : 'pi pi-plus'" class="p-button-primary" [disabled]="productoForm.invalid"
         [loading]="loading">
       </button>
     </div>
