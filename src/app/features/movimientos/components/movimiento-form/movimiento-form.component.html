@@ -1,0 +1,140 @@
+<div class="movimiento-form-container">
+  <p-card styleClass="form-card">
+    <ng-template pTemplate="header">
+      <div class="card-header">
+        <h3>
+          <i class="pi pi-plus-circle"></i>
+          Registrar Movimiento
+        </h3>
+        <p>Complete los datos del movimiento de inventario</p>
+      </div>
+    </ng-template>
+
+    <form [formGroup]="movimientoForm" (ngSubmit)="onSubmit()">
+
+      <!-- Tipo de Movimiento -->
+      <div class="form-group">
+        <label>
+          <i class="pi pi-tags"></i>
+          Tipo de Movimiento *
+        </label>
+        <div class="tipo-buttons">
+          <button *ngFor="let tipoItem of tiposMovimiento" type="button" pButton [label]="tipoItem.label"
+            [icon]="'pi ' + tipoItem.icon" [class]="'p-button-outlined tipo-button tipo-' + tipoItem.color"
+            [class.active]="tipo?.value === tipoItem.value" (click)="selectTipo(tipoItem.value)">
+          </button>
+        </div>
+        <small class="error-message" *ngIf="tipo?.invalid && tipo?.touched">
+          <i class="pi pi-exclamation-circle"></i>
+          Seleccione un tipo de movimiento
+        </small>
+      </div>
+
+      <!-- Producto con AutoComplete -->
+      <div class="form-group">
+        <label for="productoId">
+          <i class="pi pi-box"></i>
+          Producto *
+        </label>
+
+        <p-autoComplete inputId="productoId" [(ngModel)]="productoSeleccionado" [ngModelOptions]="{standalone: true}"
+          [suggestions]="productosFiltrados" (completeMethod)="buscarProducto($event)"
+          (onSelect)="onProductoSeleccionado($event.value)" field="nombre" [dropdown]="true"
+          placeholder="Buscar producto por nombre o categoría..." [minLength]="1" [showEmptyMessage]="true"
+          emptyMessage="No se encontraron productos" styleClass="w-full autocomplete-producto">
+
+          <ng-template let-producto pTemplate="item">
+            <div class="producto-autocomplete-item">
+              <div class="producto-main-info">
+                <div class="producto-nombre-categoria">
+                  <strong class="producto-nombre">{{ producto.nombre }}</strong>
+                  <span class="producto-categoria">
+                    <i class="pi pi-tag"></i>
+                    {{ producto.categoria }}
+                  </span>
+                </div>
+                <span class="producto-precio">{{ producto.precio | currency:'USD' }}</span>
+              </div>
+              <div class="producto-stock-info">
+                <span class="stock-badge" [class.stock-bajo]="producto.stock < 10">
+                  <i class="pi pi-box"></i>
+                  Stock: {{ producto.stock }}
+                </span>
+              </div>
+            </div>
+          </ng-template>
+        </p-autoComplete>
+
+        <small class="error-message" *ngIf="productoId?.invalid && productoId?.touched">
+          <i class="pi pi-exclamation-circle"></i>
+          Seleccione un producto
+        </small>
+      </div>
+
+      <!-- Cantidad -->
+      <div class="form-group">
+        <label for="cantidad">
+          <i class="pi pi-hashtag"></i>
+          Cantidad *
+        </label>
+        <p-inputNumber inputId="cantidad" formControlName="cantidad" [showButtons]="true" [min]="1" [max]="10000"
+          placeholder="0">
+        </p-inputNumber>
+        <small class="error-message" *ngIf="cantidad?.invalid && cantidad?.touched">
+          <i class="pi pi-exclamation-circle"></i>
+          La cantidad debe ser mayor a 0
+        </small>
+      </div>
+
+      <!-- Motivo -->
+      <div class="form-group">
+        <label for="motivo">
+          <i class="pi pi-comment"></i>
+          Motivo / Observaciones *
+        </label>
+        <textarea inputId="motivo" formControlName="motivo" pInputTextarea rows="4"
+          placeholder="Ej: Compra a proveedor, venta a cliente, producto dañado...">
+        </textarea>
+        <small class="error-message" *ngIf="motivo?.invalid && motivo?.touched">
+          <i class="pi pi-exclamation-circle"></i>
+          El motivo es obligatorio
+        </small>
+      </div>
+      <!-- Indicador de Validación -->
+      <div class="validation-status" *ngIf="movimientoForm.invalid">
+        <div class="validation-header">
+          <i class="pi pi-info-circle"></i>
+          <span>Complete los siguientes campos para registrar el movimiento:</span>
+        </div>
+        <div class="validation-items">
+          <div class="validation-item" *ngIf="tipo?.invalid">
+            <i class="pi pi-times-circle"></i>
+            <span>Seleccione el tipo de movimiento</span>
+          </div>
+          <div class="validation-item" *ngIf="productoId?.invalid">
+            <i class="pi pi-times-circle"></i>
+            <span>Seleccione un producto</span>
+          </div>
+          <div class="validation-item" *ngIf="cantidad?.invalid">
+            <i class="pi pi-times-circle"></i>
+            <span>Ingrese la cantidad (debe ser mayor a 0)</span>
+          </div>
+          <div class="validation-item" *ngIf="motivo?.invalid">
+            <i class="pi pi-times-circle"></i>
+            <span>Ingrese el motivo del movimiento</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="form-actions">
+        <button type="button" pButton label="Limpiar" icon="pi pi-refresh" class="p-button-secondary p-button-outlined"
+          (click)="onReset()" [disabled]="(loading$ | async) ?? false">
+        </button>
+        <button type="submit" pButton label="Registrar Movimiento" icon="pi pi-check" class="p-button-success"
+          [disabled]="movimientoForm.invalid" [loading]="(loading$ | async) ?? false">
+        </button>
+      </div>
+    </form>
+  </p-card>
+</div>

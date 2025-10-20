@@ -1,0 +1,121 @@
+<div class="productos-list-container">
+  
+  <!-- KPI Dashboard -->
+  <div class="kpi-dashboard" *ngIf="!loading">
+    <div class="kpi-card">
+      <div class="kpi-icon products">
+        <i class="pi pi-box"></i>
+      </div>
+      <div class="kpi-content">
+        <span class="kpi-value">{{ getTotalProductos() }}</span>
+        <span class="kpi-label">Total Productos</span>
+      </div>
+      <div class="kpi-trend">
+        <i class="pi pi-arrow-up"></i>
+      </div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-icon inventory">
+        <i class="pi pi-dollar"></i>
+      </div>
+      <div class="kpi-content">
+        <span class="kpi-value">{{ getValorInventario() | currency:'USD':'symbol':'1.0-0' }}</span>
+        <span class="kpi-label">Valor Total</span>
+      </div>
+      <div class="kpi-trend">
+        <i class="pi pi-arrow-up"></i>
+      </div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-icon active">
+        <i class="pi pi-check-circle"></i>
+      </div>
+      <div class="kpi-content">
+        <span class="kpi-value">{{ getProductosActivos() }}</span>
+        <span class="kpi-label">Productos Activos</span>
+      </div>
+      <div class="kpi-trend success">
+        <span class="trend-percentage">{{ getPercentajeActivos() }}%</span>
+      </div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-icon stock">
+        <i class="pi pi-shopping-cart"></i>
+      </div>
+      <div class="kpi-content">
+        <span class="kpi-value">{{ getStockTotal() }}</span>
+        <span class="kpi-label">Unidades en Stock</span>
+      </div>
+      <div class="kpi-trend">
+        <i class="pi pi-warehouse"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card Principal con Tabla -->
+  <p-card styleClass="products-table-card">
+    <ng-template pTemplate="header">
+      <div class="card-header-content">
+        <div class="header-left">
+          <h2>
+            <i class="pi pi-list"></i>
+            Listado de Productos
+          </h2>
+          <p>Gestiona tu inventario de forma eficiente</p>
+        </div>
+        <div class="header-actions">
+          <span class="products-count">
+            <i class="pi pi-filter"></i>
+            {{ getFilteredProducts().length }} de {{ getTotalProductos() }} productos
+          </span>
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Filtros -->
+    <div class="table-filters">
+      <span class="p-input-icon-left search-input">
+        <i class="pi pi-search"></i>
+        <input 
+          type="text" 
+          pInputText 
+          [(ngModel)]="searchValue"
+          (ngModelChange)="onFilterChange()"
+          placeholder="Buscar por nombre, descripción o categoría..." />
+      </span>
+
+      <p-dropdown
+        [(ngModel)]="selectedCategory"
+        (ngModelChange)="onFilterChange()"
+        [options]="getCategorias()"
+        placeholder="Todas las categorías"
+        [showClear]="true"
+        styleClass="category-filter">
+        <ng-template let-categoria pTemplate="item">
+          <div class="category-item">
+            <i class="pi pi-tag"></i>
+            <span>{{ categoria }}</span>
+          </div>
+        </ng-template>
+      </p-dropdown>
+
+      <button 
+        pButton 
+        icon="pi pi-filter-slash" 
+        label="Limpiar"
+        class="p-button-outlined p-button-secondary"
+        (click)="clearFilters()"
+        *ngIf="searchValue || selectedCategory">
+      </button>
+    </div>
+
+    <!-- Tabla Genérica -->
+    <app-generic-table
+      [config]="tableConfig"
+      [loading]="loading ?? false">
+    </app-generic-table>
+  </p-card>
+</div>

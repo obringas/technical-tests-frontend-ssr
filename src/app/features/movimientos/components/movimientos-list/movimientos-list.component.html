@@ -1,0 +1,15 @@
+<p-card styleClass="movimientos-list-card">
+  <ng-template pTemplate="header">
+    <div class="card-header">
+      <h3>
+        <i class="pi pi-history"></i>
+        Historial de Movimientos
+      </h3>
+    </div>
+  </ng-template>
+
+  <app-generic-table
+    [config]="tableConfig"
+    [loading]="loading">
+  </app-generic-table>
+</p-card>

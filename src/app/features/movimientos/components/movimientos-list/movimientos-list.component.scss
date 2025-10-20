@@ -1,0 +1,77 @@
+:host ::ng-deep {
+  .movimientos-list-card {
+    margin-top: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border: none;
+    animation: fadeIn 0.5s ease-out;
+    overflow: hidden;
+
+    // Header del Card
+    .p-card-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 0;
+      border: none;
+    }
+
+    .card-header {
+      padding: 1.5rem 2rem;
+      color: white;
+
+      h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        i {
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    // Body del Card
+    .p-card-body {
+      padding: 0;
+    }
+
+    .p-card-content {
+      padding: 0;
+      
+      // ⭐ ESPACIO MINÚSCULO ENTRE HEADER Y TABLA
+      padding-top: 0.75rem;
+    }
+
+    // Ajustar tabla dentro del card
+    .generic-table-container {
+      .p-datatable {
+        border-radius: 0;
+
+        // Quitar borde superior del header de la tabla
+        .p-datatable-thead > tr > th {
+          &::after {
+            display: none; // Quitar línea verde porque ya tiene el header del card
+          }
+        }
+
+        // Ajustar paginador para que se vea bien en el card
+        .p-paginator {
+          border-radius: 0 0 20px 20px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,173 @@
+.productos-page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+// Header
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+
+  .header-content {
+    h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      i {
+        font-size: 1.75rem;
+      }
+    }
+
+    p {
+      margin: 0;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+  }
+
+  button {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    padding: 0.875rem 1.75rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Loading Overlay Global
+:host ::ng-deep {
+  .p-blockui {
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+  }
+
+  .loading-overlay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    gap: 1.5rem;
+
+    .custom-spinner {
+      width: 80px;
+      height: 80px;
+
+      .p-progress-spinner-circle {
+        stroke: #667eea;
+        animation: custom-spinner-dash 1.5s ease-in-out infinite;
+      }
+    }
+
+    .loading-text {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #667eea;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+  }
+
+  // Loading en Dialog
+  .product-dialog {
+    .p-dialog-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 16px 16px 0 0;
+      padding: 1.5rem 2rem;
+
+      .p-dialog-title {
+        font-weight: 700;
+        font-size: 1.5rem;
+      }
+
+      .p-dialog-header-icon {
+        color: white;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    .p-dialog-content {
+      padding: 0;
+      position: relative;
+    }
+  }
+
+  .dialog-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    border-radius: 0 0 16px 16px;
+
+    .dialog-spinner {
+      width: 60px;
+      height: 60px;
+
+      .p-progress-spinner-circle {
+        stroke: #667eea;
+      }
+    }
+  }
+}
+
+@keyframes custom-spinner-dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 100, 200;
+    stroke-dashoffset: -15;
+  }
+  100% {
+    stroke-dasharray: 100, 200;
+    stroke-dashoffset: -125;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}

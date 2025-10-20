@@ -1,0 +1,36 @@
+<footer class="main-footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>
+        <i class="pi pi-shopping-bag"></i>
+        Sistema de Inventario
+      </h3>
+      <p>Solución profesional para gestión de productos</p>
+      <p class="version">Versión {{ version }}</p>
+    </div>
+
+    <div class="footer-section">
+      <h4>Tecnologías Utilizadas</h4>
+      <div class="tech-badges">
+        <div *ngFor="let tech of technologies" class="tech-badge">
+          <i [class]="'pi ' + tech.icon"></i>
+          <span>{{ tech.name }} {{ tech.version }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-section">
+      <h4>Características</h4>
+      <ul class="features-list">
+        <li><i class="pi pi-check"></i> CRUD Completo</li>
+        <li><i class="pi pi-check"></i> Estado con NgRx</li>
+        <li><i class="pi pi-check"></i> Diseño Responsive</li>
+        <li><i class="pi pi-check"></i> Formularios Reactivos</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© {{ currentYear }} Prueba Técnica Evoltis - Desarrollado con ❤️ y Angular</p>
+  </div>
+</footer>

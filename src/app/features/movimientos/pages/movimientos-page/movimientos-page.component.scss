@@ -1,0 +1,105 @@
+.movimientos-page-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+
+  .header-content {
+    h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      i {
+        font-size: 1.75rem;
+      }
+    }
+
+    p {
+      margin: 0;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+  }
+}
+
+.stats-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+
+  .stat-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.75rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    i {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-size: 2rem;
+      color: white;
+    }
+
+    &.total i {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    &.entradas i {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+
+    &.salidas i {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    }
+
+    &.ajustes i {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    }
+
+    .stat-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .stat-label {
+        font-size: 0.875rem;
+        color: #6b7280;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+    }
+  }
+}

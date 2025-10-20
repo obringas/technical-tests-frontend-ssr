@@ -1,0 +1,352 @@
+:host ::ng-deep {
+  .generic-table-container {
+    .p-datatable {
+      border-radius: 0;
+      overflow: visible;
+      box-shadow: none;
+
+      // Header Profesional
+      .p-datatable-thead > tr > th {
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        color: white;
+        font-weight: 700;
+        padding: 1.25rem 1.5rem;
+        border: none;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        white-space: nowrap;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+        }
+
+        .p-sortable-column-icon {
+          color: #10b981;
+          margin-left: 0.5rem;
+          font-size: 1rem;
+        }
+
+        &.p-highlight {
+          background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+          
+          .p-sortable-column-icon {
+            color: white;
+          }
+        }
+
+        &.text-center {
+          text-align: center;
+        }
+
+        &.text-right {
+          text-align: right;
+        }
+
+        &.text-left {
+          text-align: left;
+        }
+      }
+
+      // Body Rows
+      .p-datatable-tbody > tr {
+        transition: all 0.25s ease;
+        border-bottom: 1px solid #e5e7eb;
+        background: white;
+
+        &:hover {
+          background: linear-gradient(90deg, rgba(16, 185, 129, 0.03) 0%, rgba(16, 185, 129, 0.06) 50%, rgba(16, 185, 129, 0.03) 100%);
+          transform: translateX(3px);
+          box-shadow: -3px 0 0 0 #10b981, 0 2px 8px rgba(16, 185, 129, 0.1);
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        > td {
+          padding: 1.25rem 1.5rem;
+          color: #1e293b;
+          font-size: 0.95rem;
+          border: none;
+          vertical-align: middle;
+          font-weight: 500;
+
+          &.text-center {
+            text-align: center;
+          }
+
+          &.text-right {
+            text-align: right;
+          }
+
+          &.text-left {
+            text-align: left;
+          }
+        }
+      }
+
+      // Currency Values
+      .currency-value {
+        font-weight: 700;
+        color: #10b981;
+        font-size: 1.05rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+
+      // Badges
+      .p-tag {
+        padding: 0.6rem 1.2rem;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+
+        &.p-tag-success {
+          background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        &.p-tag-danger {
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        &.p-tag-warning {
+          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        &.p-tag-info {
+          background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        }
+      }
+
+      // ⭐ BOTONES MEJORADOS - MÁS GRANDES Y VISIBLES
+      .table-buttons {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+        button {
+          // Tamaño más grande
+          width: 38px !important;
+          height: 38px !important;
+          min-width: 38px !important;
+          
+          // Redondeados
+          border-radius: 50% !important;
+          
+          // Sin borde
+          border: none !important;
+          
+          // Transiciones suaves
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          
+          // Iconos más grandes
+          i {
+            font-size: 1.15rem !important;
+            font-weight: 700 !important;
+          }
+
+          // Botón Editar (Verde)
+          &.p-button-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+            color: white !important;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+
+            &:hover:not(:disabled) {
+              background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+              transform: translateY(-3px) scale(1.08);
+              box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+            }
+          }
+
+          // Botón Borrar (Rojo) - MÁS VISIBLE
+          &.p-button-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+            color: white !important;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+
+            &:hover:not(:disabled) {
+              background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+              transform: translateY(-3px) scale(1.08);
+              box-shadow: 0 6px 16px rgba(239, 68, 68, 0.5);
+            }
+
+            i {
+              color: white !important;
+            }
+          }
+
+          // Botón Warning (Amarillo)
+          &.p-button-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+            color: white !important;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+
+            &:hover:not(:disabled) {
+              background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+              transform: translateY(-3px) scale(1.08);
+              box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+            }
+          }
+
+          // Botón Info (Azul)
+          &.p-button-info {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+            color: white !important;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+
+            &:hover:not(:disabled) {
+              background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+              transform: translateY(-3px) scale(1.08);
+              box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+            }
+          }
+
+          &:active:not(:disabled) {
+            transform: translateY(-1px) scale(1.05);
+          }
+        }
+      }
+
+      // Empty State
+      .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+
+        i {
+          font-size: 4rem;
+          color: #cbd5e1;
+          margin-bottom: 1.5rem;
+          display: block;
+          opacity: 0.5;
+        }
+
+        p {
+          margin: 0;
+          color: #64748b;
+          font-size: 1.1rem;
+          font-weight: 500;
+        }
+      }
+
+      // Loading State
+      .loading-state {
+        text-align: center;
+        padding: 4rem 2rem;
+
+        i {
+          font-size: 3rem;
+          color: #10b981;
+          margin-bottom: 1.5rem;
+          display: block;
+        }
+
+        p {
+          margin: 0;
+          color: #065f46;
+          font-size: 1rem;
+          font-weight: 600;
+        }
+      }
+
+      // Paginator
+      .p-paginator {
+        background: #f9fafb;
+        border-top: 2px solid #e5e7eb;
+        padding: 1.25rem 1.5rem;
+        border-radius: 0;
+
+        .p-paginator-current {
+          color: #374151;
+          font-weight: 600;
+        }
+
+        .p-paginator-pages {
+          .p-paginator-page {
+            border-radius: 8px;
+            min-width: 2.5rem;
+            height: 2.5rem;
+            transition: all 0.2s ease;
+
+            &:hover {
+              background: #e5e7eb;
+            }
+
+            &.p-highlight {
+              background: #10b981;
+              border-color: #10b981;
+              box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+            }
+          }
+        }
+
+        .p-dropdown {
+          border-radius: 8px;
+          border-color: #d1d5db;
+
+          &:hover {
+            border-color: #10b981;
+          }
+        }
+
+        button {
+          border-radius: 8px;
+          color: #374151;
+          transition: all 0.2s ease;
+
+          &:hover:not(:disabled) {
+            background: #e5e7eb;
+            color: #10b981;
+          }
+
+          &:disabled {
+            opacity: 0.4;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  :host ::ng-deep {
+    .generic-table-container {
+      .p-datatable {
+        .p-datatable-thead > tr > th,
+        .p-datatable-tbody > tr > td {
+          padding: 0.875rem 1rem;
+          font-size: 0.875rem;
+        }
+
+        .table-buttons {
+          button {
+            width: 36px !important;
+            height: 36px !important;
+          }
+        }
+
+        .p-paginator {
+          padding: 1rem;
+
+          .p-paginator-current {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

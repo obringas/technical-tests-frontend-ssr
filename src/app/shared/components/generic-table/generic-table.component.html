@@ -1,0 +1,99 @@
+<div class="generic-table-container">
+    <p-table [value]="config.data" [loading]="loading" [paginator]="config.paginator !== false"
+        [rows]="config.rows || 10" [totalRecords]="config.totalRecords || 0"
+        [showCurrentPageReport]="config.showCurrentPageReport !== false"
+        [rowsPerPageOptions]="config.rowsPerPageOptions || [10, 25, 50]"
+        [currentPageReportTemplate]="'Mostrando {first} a {last} de {totalRecords} registros'"
+        styleClass="p-datatable-gridlines" responsiveLayout="scroll" (onLazyLoad)="onLazyLoad($event)">
+
+        <!-- Header SIN FILTROS -->
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of config.columns" [ngClass]="getAlignClass(col.headerAlign || col.align)"
+                    [pSortableColumn]="col.sortable ? col.field : undefined" [style.width]="col.width || 'auto'">
+                    {{ col.header }}
+                    <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+
+        <!-- Body -->
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr [pSelectableRow]="rowData" (click)="onRowSelect(rowData)">
+                <td *ngFor="let col of config.columns" [ngClass]="getAlignClass(col.align)"
+                    [style.width]="col.width || 'auto'">
+
+                    <!-- Text -->
+                    <span *ngIf="col.type === ColumnType.text">
+                        {{ getCellValue(rowData, col) }}
+                    </span>
+
+                    <!-- Numeric -->
+                    <span *ngIf="col.type === ColumnType.numeric">
+                        {{ getCellValue(rowData, col) | number:'1.0-0' }}
+                    </span>
+
+                    <!-- Currency -->
+                    <span *ngIf="col.type === ColumnType.currency" class="currency-value">
+                        {{ getCellValue(rowData, col) | currency:'USD':'symbol':'1.2-2' }}
+                    </span>
+
+                    <!-- Date -->
+                    <span *ngIf="col.type === ColumnType.date">
+                        {{ getCellValue(rowData, col) | date:'dd/MM/yyyy' }}
+                    </span>
+
+                    <!-- DateTime -->
+                    <span *ngIf="col.type === ColumnType.datetime">
+                        {{ getCellValue(rowData, col) | date:'dd/MM/yyyy HH:mm' }}
+                    </span>
+
+                    <!-- Badge -->
+                    <p-tag *ngIf="col.type === ColumnType.badge && col.badgeConfig"
+                        [value]="col.badgeConfig.getValue(rowData)" [severity]="col.badgeConfig.getSeverity(rowData)">
+                    </p-tag>
+
+                    <!-- Buttons -->
+                    <div *ngIf="col.type === ColumnType.buttons" class="table-buttons">
+                        <button *ngFor="let btn of col.buttons" pButton [icon]="btn.icon || ''"
+                            [label]="btn.label || ''" [class]="btn.class || 'p-button-text'"
+                            [pTooltip]="btn.tooltip || ''" tooltipPosition="top"
+                            (click)="onButtonClick(btn, rowData, $event)"
+                            [style.display]="shouldShowButton(btn, rowData) ? 'inline-flex' : 'none'">
+                        </button>
+                    </div>
+                    <!-- Custom Template -->
+                    <ng-container *ngIf="col.type === ColumnType.custom && customCellTemplate">
+                        <ng-container
+                            *ngTemplateOutlet="customCellTemplate; context: { $implicit: rowData, column: col }">
+                        </ng-container>
+                    </ng-container>
+                </td>
+            </tr>
+        </ng-template>
+
+        <!-- Empty -->
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td [attr.colspan]="config.columns.length">
+                    <div class="empty-state">
+                        <i class="pi pi-inbox"></i>
+                        <p>{{ config.emptyMessage || 'No hay registros para mostrar' }}</p>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+
+        <!-- Loading -->
+        <ng-template pTemplate="loadingbody">
+            <tr>
+                <td [attr.colspan]="config.columns.length">
+                    <div class="loading-state">
+                        <i class="pi pi-spin pi-spinner"></i>
+                        <p>Cargando datos...</p>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

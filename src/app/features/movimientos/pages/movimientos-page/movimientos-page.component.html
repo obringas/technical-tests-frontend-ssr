@@ -1,0 +1,58 @@
+<div class="movimientos-page-container">
+  
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1>
+        <i class="pi pi-sync"></i>
+        Movimientos de Inventario
+      </h1>
+      <p>Registra y consulta los movimientos de stock</p>
+    </div>
+  </div>
+
+  <!-- Stats Dashboard -->
+  <div class="stats-dashboard" *ngIf="stats$ | async as stats">
+    <div class="stat-card total">
+      <i class="pi pi-chart-line"></i>
+      <div class="stat-content">
+        <span class="stat-value">{{ stats.total }}</span>
+        <span class="stat-label">Total Movimientos</span>
+      </div>
+    </div>
+
+    <div class="stat-card entradas">
+      <i class="pi pi-arrow-down"></i>
+      <div class="stat-content">
+        <span class="stat-value">{{ stats.entradas }}</span>
+        <span class="stat-label">Entradas</span>
+      </div>
+    </div>
+
+    <div class="stat-card salidas">
+      <i class="pi pi-arrow-up"></i>
+      <div class="stat-content">
+        <span class="stat-value">{{ stats.salidas }}</span>
+        <span class="stat-label">Salidas</span>
+      </div>
+    </div>
+
+    <div class="stat-card ajustes">
+      <i class="pi pi-sliders-h"></i>
+      <div class="stat-content">
+        <span class="stat-value">{{ stats.ajustes }}</span>
+        <span class="stat-label">Ajustes</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario -->
+  <app-movimiento-form></app-movimiento-form>
+
+  <!-- Lista de Movimientos -->
+  <app-movimientos-list
+    [movimientos]="movimientos$ | async"
+    [loading]="(loading$ | async) ?? false">
+  </app-movimientos-list>
+
+</div>

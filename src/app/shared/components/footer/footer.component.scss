@@ -1,0 +1,124 @@
+.main-footer {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  color: white;
+  margin-top: auto;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+
+  .footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem 2rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      padding: 2rem 1rem 1rem;
+    }
+  }
+
+  .footer-section {
+    h3 {
+      margin: 0 0 1rem 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      i {
+        font-size: 1.75rem;
+        color: #667eea;
+      }
+    }
+
+    h4 {
+      margin: 0 0 1rem 0;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #d1d5db;
+    }
+
+    p {
+      margin: 0.5rem 0;
+      color: #9ca3af;
+      line-height: 1.6;
+    }
+
+    .version {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: rgba(102, 126, 234, 0.2);
+      border-radius: 20px;
+      color: #a5b4fc;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+  }
+
+  .tech-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .tech-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      border-left: 3px solid #667eea;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateX(5px);
+      }
+
+      i {
+        font-size: 1.25rem;
+        color: #667eea;
+      }
+
+      span {
+        font-weight: 600;
+        color: #e5e7eb;
+      }
+    }
+  }
+
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      color: #d1d5db;
+      font-size: 0.95rem;
+
+      i {
+        color: #10b981;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem 2rem;
+    text-align: center;
+
+    p {
+      margin: 0;
+      color: #9ca3af;
+      font-size: 0.875rem;
+    }
+  }
+}

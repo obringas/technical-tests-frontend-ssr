@@ -1,1 +1,20 @@
-<h1>Hola, tu puedes! Te damos una mano con este repo para esta prueba técnica</h1>
+<div class="app-container">
+  <app-header></app-header>
+  
+  <main class="main-content">
+    <!-- Solo un toast -->
+    <p-toast position="top-right"></p-toast>
+    
+    <!-- Dialog de confirmación -->
+    <p-confirmDialog 
+      [style]="{width: '450px'}"
+      [baseZIndex]="10000"
+      [closable]="true"
+      [closeOnEscape]="true">
+    </p-confirmDialog>
+    
+    <router-outlet></router-outlet>
+  </main>
+  
+  <app-footer></app-footer>
+</div>

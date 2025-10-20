@@ -1,0 +1,262 @@
+<div class="producto-form-pro">
+  
+  <!-- Header Personalizado -->
+  <div class="form-header" [class.edit-mode]="isEditMode">
+    <div class="header-icon">
+      <i [class]="isEditMode ? 'pi pi-pencil' : 'pi pi-plus-circle'"></i>
+    </div>
+    <div class="header-content">
+      <h3>{{ isEditMode ? 'Editar Producto' : 'Nuevo Producto' }}</h3>
+      <p>{{ isEditMode ? 'Actualiza la información del producto' : 'Completa los datos del nuevo producto' }}</p>
+    </div>
+  </div>
+
+  <form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
+    
+    <div class="form-body">
+      
+      <!-- Progress Indicator -->
+      <div class="form-progress">
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="getFormCompletionPercentage()"></div>
+        </div>
+        <span class="progress-text">{{ getFormCompletionPercentage() }}% Completado</span>
+      </div>
+
+      <!-- Card: Información Básica -->
+      <p-card styleClass="info-card">
+        <ng-template pTemplate="header">
+          <div class="card-header">
+            <i class="pi pi-info-circle"></i>
+            <span>Información Básica</span>
+          </div>
+        </ng-template>
+
+        <div class="form-group">
+          <label for="nombre">
+            <i class="pi pi-tag"></i>
+            Nombre del Producto *
+            <i class="pi pi-question-circle help-icon" 
+               pTooltip="Ingresa un nombre descriptivo y único para el producto" 
+               tooltipPosition="right"></i>
+          </label>
+          <input 
+            id="nombre"
+            type="text" 
+            pInputText 
+            formControlName="nombre"
+            [class.input-error]="isFieldInvalid('nombre')"
+            [class.input-success]="productoForm.get('nombre')?.valid && productoForm.get('nombre')?.touched"
+            placeholder="Ej: Laptop Dell Inspiron 15" />
+          <small class="error-message" *ngIf="isFieldInvalid('nombre')">
+            <i class="pi pi-exclamation-circle"></i>
+            {{ getErrorMessage('nombre') }}
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="descripcion">
+            <i class="pi pi-align-left"></i>
+            Descripción *
+            <i class="pi pi-question-circle help-icon" 
+               pTooltip="Describe las características principales del producto" 
+               tooltipPosition="right"></i>
+          </label>
+          <textarea 
+            id="descripcion"
+            pInputTextarea 
+            formControlName="descripcion"
+            [class.input-error]="isFieldInvalid('descripcion')"
+            [class.input-success]="productoForm.get('descripcion')?.valid && productoForm.get('descripcion')?.touched"
+            rows="4"
+            placeholder="Describe el producto detalladamente...">
+          </textarea>
+          <small class="error-message" *ngIf="isFieldInvalid('descripcion')">
+            <i class="pi pi-exclamation-circle"></i>
+            {{ getErrorMessage('descripcion') }}
+          </small>
+          <small class="char-counter">{{ productoForm.get('descripcion')?.value?.length || 0 }} / 500 caracteres</small>
+        </div>
+
+        <div class="form-group">
+          <label for="categoria">
+            <i class="pi pi-folder"></i>
+            Categoría *
+            <i class="pi pi-question-circle help-icon" 
+               pTooltip="Selecciona la categoría que mejor describa el producto" 
+               tooltipPosition="right"></i>
+          </label>
+          <p-dropdown
+            id="categoria"
+            formControlName="categoria"
+            [options]="categorias"
+            optionLabel="label"
+            optionValue="value"
+            [class.input-error]="isFieldInvalid('categoria')"
+            [class.input-success]="productoForm.get('categoria')?.valid && productoForm.get('categoria')?.touched"
+            placeholder="Seleccione una categoría"
+            [showClear]="true">
+            <ng-template pTemplate="selectedItem" let-selectedOption>
+              <div class="dropdown-item" *ngIf="selectedOption">
+                <i class="pi pi-tag"></i>
+                <span>{{ selectedOption.label }}</span>
+              </div>
+            </ng-template>
+            <ng-template let-categoria pTemplate="item">
+              <div class="dropdown-item">
+                <i class="pi pi-tag"></i>
+                <span>{{ categoria.label }}</span>
+              </div>
+            </ng-template>
+          </p-dropdown>
+          <small class="error-message" *ngIf="isFieldInvalid('categoria')">
+            <i class="pi pi-exclamation-circle"></i>
+            {{ getErrorMessage('categoria') }}
+          </small>
+        </div>
+      </p-card>
+
+      <!-- Card: Detalles Comerciales -->
+      <p-card styleClass="commercial-card">
+        <ng-template pTemplate="header">
+          <div class="card-header">
+            <i class="pi pi-dollar"></i>
+            <span>Detalles Comerciales</span>
+          </div>
+        </ng-template>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="precio">
+              <i class="pi pi-money-bill"></i>
+              Precio *
+              <i class="pi pi-question-circle help-icon" 
+                 pTooltip="Precio de venta al público" 
+                 tooltipPosition="right"></i>
+            </label>
+            <p-inputNumber
+              id="precio"
+              formControlName="precio"
+              mode="currency"
+              currency="USD"
+              locale="en-US"
+              [class.input-error]="isFieldInvalid('precio')"
+              [class.input-success]="productoForm.get('precio')?.valid && productoForm.get('precio')?.touched"
+              [minFractionDigits]="2"
+              placeholder="0.00">
+            </p-inputNumber>
+            <small class="error-message" *ngIf="isFieldInvalid('precio')">
+              <i class="pi pi-exclamation-circle"></i>
+              {{ getErrorMessage('precio') }}
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="stock">
+              <i class="pi pi-box"></i>
+              Stock *
+              <i class="pi pi-question-circle help-icon" 
+                 pTooltip="Cantidad disponible en inventario" 
+                 tooltipPosition="right"></i>
+            </label>
+            <p-inputNumber
+              id="stock"
+              formControlName="stock"
+              [showButtons]="true"
+              [min]="0"
+              [class.input-error]="isFieldInvalid('stock')"
+              [class.input-success]="productoForm.get('stock')?.valid && productoForm.get('stock')?.touched"
+              placeholder="0">
+            </p-inputNumber>
+            <small class="error-message" *ngIf="isFieldInvalid('stock')">
+              <i class="pi pi-exclamation-circle"></i>
+              {{ getErrorMessage('stock') }}
+            </small>
+            <small class="stock-indicator" *ngIf="productoForm.get('stock')?.value >= 0">
+              <i [class]="getStockIndicatorIcon()"></i>
+              {{ getStockIndicatorText() }}
+            </small>
+          </div>
+        </div>
+      </p-card>
+
+      <!-- Card: Estado y Configuración -->
+      <p-card styleClass="status-card">
+        <ng-template pTemplate="header">
+          <div class="card-header">
+            <i class="pi pi-cog"></i>
+            <span>Estado y Configuración</span>
+          </div>
+        </ng-template>
+
+        <div class="status-toggle">
+          <div class="toggle-content">
+            <div class="toggle-info">
+              <i class="pi pi-power-off" [class.active]="productoForm.get('activo')?.value"></i>
+              <div>
+                <strong>Estado del Producto</strong>
+                <p>{{ productoForm.get('activo')?.value ? 'El producto está activo y visible' : 'El producto está inactivo' }}</p>
+              </div>
+            </div>
+            <p-inputSwitch formControlName="activo"></p-inputSwitch>
+          </div>
+        </div>
+      </p-card>
+
+      <!-- Preview Card (solo si el formulario tiene datos) -->
+      <p-card styleClass="preview-card" *ngIf="showPreview()">
+        <ng-template pTemplate="header">
+          <div class="card-header">
+            <i class="pi pi-eye"></i>
+            <span>Vista Previa</span>
+          </div>
+        </ng-template>
+
+        <div class="product-preview">
+          <div class="preview-item">
+            <i class="pi pi-tag"></i>
+            <span class="preview-label">Nombre:</span>
+            <span class="preview-value">{{ productoForm.get('nombre')?.value || '-' }}</span>
+          </div>
+          <div class="preview-item">
+            <i class="pi pi-money-bill"></i>
+            <span class="preview-label">Precio:</span>
+            <span class="preview-value">{{ productoForm.get('precio')?.value | currency:'USD' }}</span>
+          </div>
+          <div class="preview-item">
+            <i class="pi pi-box"></i>
+            <span class="preview-label">Stock:</span>
+            <span class="preview-value">{{ productoForm.get('stock')?.value || 0 }} unidades</span>
+          </div>
+          <div class="preview-item">
+            <i class="pi pi-folder"></i>
+            <span class="preview-label">Categoría:</span>
+            <span class="preview-value">{{ productoForm.get('categoria')?.value || '-' }}</span>
+          </div>
+        </div>
+      </p-card>
+
+    </div>
+
+    <!-- Footer con botones -->
+    <div class="form-footer">
+      <button 
+        pButton 
+        type="button"
+        label="Cancelar" 
+        icon="pi pi-times"
+        class="p-button-secondary p-button-outlined"
+        (click)="onCancel()">
+      </button>
+      <button 
+        pButton 
+        type="submit"
+        [label]="isEditMode ? 'Actualizar Producto' : 'Crear Producto'"
+        [icon]="isEditMode ? 'pi pi-save' : 'pi pi-plus'"
+        class="p-button-primary"
+        [disabled]="productoForm.invalid"
+        [loading]="loading">
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,71 @@
+<div class="productos-page-container">
+  <!-- BlockUI Global -->
+  <p-blockUI [blocked]="(loading$ | async) ?? false">
+    <div class="loading-overlay">
+      <p-progressSpinner 
+        styleClass="custom-spinner"
+        strokeWidth="4"
+        animationDuration="1s">
+      </p-progressSpinner>
+      <p class="loading-text">Procesando...</p>
+    </div>
+  </p-blockUI>
+
+  <!-- Header Section -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1>
+        <i class="pi pi-box"></i>
+        Gestión de Productos
+      </h1>
+      <p>Administra tu inventario de forma eficiente</p>
+    </div>
+    <button 
+      pButton 
+      label="Nuevo Producto" 
+      icon="pi pi-plus"
+      class="p-button-success"
+      (click)="onCreateProducto()"
+      [disabled]="loading$ | async">
+    </button>
+  </div>
+
+  <!-- Lista de Productos -->
+  <app-producto-list
+    [productos]="productos$ | async"
+    [loading]="loading$ | async"
+    (edit)="onEditProducto($event)"
+    (delete)="onDeleteProducto($event)">
+  </app-producto-list>
+
+  <!-- Dialog con Loading -->
+  <p-dialog
+    [(visible)]="displayDialog"
+    [header]="isEditMode ? 'Editar Producto' : 'Nuevo Producto'"
+    [modal]="true"
+    [style]="{ width: '650px' }"
+    [draggable]="false"
+    [resizable]="false"
+    styleClass="product-dialog"
+    (onHide)="onDialogHide()">
+    
+    <!-- Loading en Dialog -->
+    <p-blockUI [blocked]="(loading$ | async) ?? false">
+      <div class="dialog-loading-overlay">
+        <p-progressSpinner 
+          styleClass="dialog-spinner"
+          strokeWidth="4"
+          animationDuration="1s">
+        </p-progressSpinner>
+      </div>
+    </p-blockUI>
+
+    <app-producto-form
+      [producto]="selectedProducto$ | async"
+      [isEditMode]="isEditMode"
+      [loading]="(loading$ | async) ?? false"
+      (saved)="onProductoSaved()"
+      (cancel)="onDialogHide()">
+    </app-producto-form>
+  </p-dialog>
+</div>
